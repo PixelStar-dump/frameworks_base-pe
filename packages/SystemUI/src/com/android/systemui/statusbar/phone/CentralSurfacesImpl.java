@@ -169,6 +169,7 @@ import com.android.systemui.keyguard.WakefulnessLifecycle;
 import com.android.systemui.keyguard.domain.interactor.AlternateBouncerInteractor;
 import com.android.systemui.keyguard.ui.binder.LightRevealScrimViewBinder;
 import com.android.systemui.keyguard.ui.viewmodel.LightRevealScrimViewModel;
+import com.android.systemui.model.SysUiState;
 import com.android.systemui.navigationbar.NavigationBarController;
 import com.android.systemui.navigationbar.NavigationBarView;
 import com.android.systemui.plugins.DarkIconDispatcher;
@@ -694,6 +695,7 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces, Tune
     private boolean mDisplayCutoutHidden;
     private Handler mRefreshNavbarHandler;
     private final BurnInProtectionController mBurnInProtectionController;
+    private final SysUiState mSysUiState;
 
     /**
      * Public constructor for CentralSurfaces.
@@ -797,8 +799,12 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces, Tune
             Provider<FingerprintManager> fingerprintManager,
             TunerService tunerService,
             @Main Handler refreshNavbarHandler,
+<<<<<<< HEAD
             BurnInProtectionController burnInProtectionController
     ) {
+=======
+            SysUiState sysUiState) {
+>>>>>>> a19fbd64ffb2 (base: add API for disabling gestural navigation)
         mContext = context;
         mNotificationsController = notificationsController;
         mFragmentService = fragmentService;
@@ -876,9 +882,13 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces, Tune
         mWallpaperManager = wallpaperManager;
         mJankMonitor = jankMonitor;
         mCameraLauncherLazy = cameraLauncherLazy;
+<<<<<<< HEAD
         mAlternateBouncerInteractor = alternateBouncerInteractor;
         mUserTracker = userTracker;
         mFingerprintManager = fingerprintManager;
+=======
+        mSysUiState = sysUiState;
+>>>>>>> a19fbd64ffb2 (base: add API for disabling gestural navigation)
 
         mLockscreenShadeTransitionController = lockscreenShadeTransitionController;
         mStartingSurfaceOptional = startingSurfaceOptional;
@@ -4081,6 +4091,17 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces, Tune
 
     protected void dismissKeyboardShortcuts() {
         KeyboardShortcuts.dismiss();
+    }
+
+    @Override
+    public void setBlockedGesturalNavigation(boolean blocked) {
+        if (getNotificationPanelViewController() != null) {
+            getNotificationPanelViewController().setBlockedGesturalNavigation(blocked);
+            getNotificationPanelViewController().updateSystemUiStateFlags();
+        }
+        if (getNavigationBarView() != null) {
+            getNavigationBarView().setBlockedGesturalNavigation(blocked, mSysUiState);
+        }
     }
 
     /**
