@@ -799,12 +799,8 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces, Tune
             Provider<FingerprintManager> fingerprintManager,
             TunerService tunerService,
             @Main Handler refreshNavbarHandler,
-<<<<<<< HEAD
-            BurnInProtectionController burnInProtectionController
-    ) {
-=======
+            BurnInProtectionController burnInProtectionController,
             SysUiState sysUiState) {
->>>>>>> a19fbd64ffb2 (base: add API for disabling gestural navigation)
         mContext = context;
         mNotificationsController = notificationsController;
         mFragmentService = fragmentService;
@@ -882,14 +878,10 @@ public class CentralSurfacesImpl implements CoreStartable, CentralSurfaces, Tune
         mWallpaperManager = wallpaperManager;
         mJankMonitor = jankMonitor;
         mCameraLauncherLazy = cameraLauncherLazy;
-<<<<<<< HEAD
         mAlternateBouncerInteractor = alternateBouncerInteractor;
         mUserTracker = userTracker;
         mFingerprintManager = fingerprintManager;
-=======
         mSysUiState = sysUiState;
->>>>>>> a19fbd64ffb2 (base: add API for disabling gestural navigation)
-
         mLockscreenShadeTransitionController = lockscreenShadeTransitionController;
         mStartingSurfaceOptional = startingSurfaceOptional;
         mDreamManager = dreamManager;
